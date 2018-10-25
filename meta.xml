@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<module>
+  <id>decanet</id>
+  <name>Decanet</name>
+  <description>Reliez votre serveur Plesk à votre infogérance Decanet.</description>
+  <version>1.0</version>
+  <release>1</release>
+  <vendor>Decanet</vendor>
+  <url>https://www.decanet.fr</url>
+  <plesk_min_version>17.0</plesk_min_version>
+  <os>unix</os>
+</module>

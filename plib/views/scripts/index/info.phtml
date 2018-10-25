@@ -1,0 +1,27 @@
+<?php echo $this->renderTabs($this->tabs); ?>
+
+<table id="pm-list-decanet-table" width="100%" cellspacing="0">
+    <thead>
+        <tbody>
+            <tr class=" odd" data-row-id="">
+                <td class=""><?php echo pm_Locale::lmsg('Balance');?></td>
+                <td class=""><?php echo $this->thirdparty->balance; ?> EUR</td>
+            </tr>
+            <tr class=" odd" data-row-id="">
+                <td class=""><?php echo pm_Locale::lmsg('CustomerCode');?></td>
+                <td class=""><?php echo $this->thirdparty->code_client; ?></td>
+            </tr>
+            <tr class=" odd" data-row-id="">
+                <td class=""><?php echo pm_Locale::lmsg('Denomination');?></td>
+                <td class=""><?php echo $this->thirdparty->name; ?></td>
+            </tr>
+            <tr class=" odd" data-row-id="">
+                <td class=""><?php echo pm_Locale::lmsg('Address');?></td>
+                <td class=""><?php echo $this->thirdparty->address; ?><br><?php echo $this->thirdparty->zip; ?> <?php echo $this->thirdparty->town; ?></td>
+            </tr>
+            <tr class=" odd" data-row-id="">
+                <td class=""><?php echo pm_Locale::lmsg('Email');?></td>
+                <td class=""><?php echo $this->thirdparty->email; ?></td>
+            </tr>
+        </tbody>
+</table>
