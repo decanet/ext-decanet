@@ -34,70 +34,68 @@ class BackupsController extends pm_Controller_Action
     
     public function backupslistAction()
     {
-//        $this->view->list =  $this->_getListRandom();
+        $this->view->list = $this->_getListRandom();
     }
     
     public function listDataAction()
     {
         $list = $this->_getListRandom();
-
         // Json data from pm_View_List_Simple
         $this->_helper->json($list->fetchData());
     }
     
     private function _getListRandom()
     {
-		//die(var_dump( pm_ApiCli::callSbin('backups.sh',  array('list','ftp'), pm_ApiCli::RESULT_FULL)));
         $servers = array();
         $data = array();
-        $result = pm_ApiCli::callSbin('serverconf',  array('--key','FULLHOSTNAME'), pm_ApiCli::RESULT_FULL);
-        $server = trim($result['stdout']);
-        if(pm_Settings::get('dcApiLogin') && pm_Settings::get('dcApiKey')) {
-            $dns = $this->api->get("/server/$server/dns");
-            if($dns)
-                foreach ($dns as $d) {
-                    $data[] = array(
-                        'id' => $d->id,
-                        'domain' => $d->domaine,
-                        'status' => '<img src="' . pm_Context::getBaseUrl() . 'images/state'.$d->etat.'.png" /> ',
-                    );
-                }
-        }
+        $result = pm_ApiCli::callSbin('backups.sh',  array('list','ftp'), pm_ApiCli::RESULT_FULL);
+        $backups = trim($result['stdout']);
+        $backups = explode("\n", $backups);
+        if($backups)
+            foreach ($backups as $b) {
+                $data[] = array(
+                    'name' => $b,
+                    'type' => 'FTP',
+                    'linkr' => '<a href="'.$this->_helper->url('backupdates', 'backup').'/backup_name/'.$b.'/type/ftp">'.pm_Locale::lmsg('ShowDates').'</a>',
+                );
+            }
+        $result = pm_ApiCli::callSbin('backups.sh',  array('list','sql'), pm_ApiCli::RESULT_FULL);
+        $backups = trim($result['stdout']);
+        $backups = explode("\n", $backups);
+        if($backups)
+            foreach ($backups as $b) {
+                $data[] = array(
+                    'name' => $b,
+                    'type' => 'SQL',
+                    'linkr' => '<a href="'.$this->_helper->url('backupdates', 'backup').'/backup_name/'.$b.'/type/sql">'.pm_Locale::lmsg('ShowDates').'</a>',
+                    
+                );
+            }
+
 
         $list = new pm_View_List_Simple($this->view, $this->_request);
         $list->setData($data);
         $list->setColumns(array(
-            pm_View_List_Simple::COLUMN_SELECTION,
-            'id' => array(
-                'title' => pm_Locale::lmsg('#ID'),
+            'name' => array(
+                'title' => pm_Locale::lmsg('BackupName'),
+                'noEscape' => true,
+                'searchable' => true, 
+            ),
+            'type' => array(
+                'title' => pm_Locale::lmsg('BackupType'),
+                'noEscape' => true,
+                'searchable' => true,
+            ),
+            'linkr' => array(
+                'title' => pm_Locale::lmsg('BackupShowDatesLinks'),
                 'noEscape' => true,
             ),
-            'domain' => array(
-                'title' => pm_Locale::lmsg('Domain'),
-                'noEscape' => true,
-            ),
-            'status' => array(
-                'title' =>  pm_Locale::lmsg('Status'),
-                'noEscape' => true,
-            ),
+            
         ));
         
-        $buttons[] = [
-			'title' => pm_Locale::lmsg('addButton'),
-			'description' => pm_Locale::lmsg('addButtonDesc'),
-			'class' => 'sb-add-new-own-subscription',
-			'controller' => 'edit',
-			'action' => 'editdomain'
-		];
-		$buttons[] = [
-			'title' => pm_Locale::lmsg('removeButton'),
-//			'description' => pm_Locale::lmsg('removeButtonDesc'),
-			'class' => 'sb-remove-selected',
-			'execGroupOperation' => $this->_helper->url('remove'),
-		];
-        $list->setTools($buttons);
         // Take into account listDataAction corresponds to the URL /list-data/
         $list->setDataUrl(array('action' => 'list-data'));
         return $list;
     }
 }
+

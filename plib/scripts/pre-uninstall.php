@@ -1,6 +1,7 @@
 <?php
 
 pm_Context::init('decanet');
+
 $id = pm_Settings::get('customButtonId');
 
 $request = <<<APICALL
@@ -17,6 +18,9 @@ try {
     $response = pm_ApiRpc::getService()->call($request);
 
     $result = $response->ui->{"delete-custombutton"}->result;
+    
+    pm_Scheduler::getInstance()->removeAllTasks();
+    pm_Settings::clean();
     if (true || 'ok' == $result->status) {
         echo "done\n";
         exit(0);

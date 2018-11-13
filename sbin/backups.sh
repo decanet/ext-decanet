@@ -32,6 +32,10 @@ function restore() {
         fi
 }
 
+function current() {
+        ls -1 /etc/decanet/restore/$1/
+}
+
 case $1 in
         list)
                 if [ $# -eq 1 ]
@@ -72,6 +76,14 @@ case $1 in
                 fi
 
                 restore $2 $3 $4;;
+        status)
+                if [ $# -eq 1 ]
+                then
+                        echo "Backup type needed";
+                        exit 2
+                fi
+
+                current $2;;
         *)
                 echo "Command not found";
                 exit 2;;
