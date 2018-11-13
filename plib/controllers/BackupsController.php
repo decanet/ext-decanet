@@ -47,7 +47,7 @@ class BackupsController extends pm_Controller_Action
     
     private function _getListRandom()
     {
-		die(var_dump( pm_ApiCli::callSbin('backups.sh',  array('list','ftp'), pm_ApiCli::RESULT_FULL)));
+		//die(var_dump( pm_ApiCli::callSbin('backups.sh',  array('list','ftp'), pm_ApiCli::RESULT_FULL)));
         $servers = array();
         $data = array();
         $result = pm_ApiCli::callSbin('serverconf',  array('--key','FULLHOSTNAME'), pm_ApiCli::RESULT_FULL);

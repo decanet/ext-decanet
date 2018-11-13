@@ -21,4 +21,5 @@ $messages = [
     'Denomination' => 'Denomination',
     'Address' => 'Adresse',
     'Email' => 'Email',
+	'Backups' => 'Sauvegardes'
 ];
