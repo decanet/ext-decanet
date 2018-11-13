@@ -10,26 +10,31 @@ class BackupsController extends pm_Controller_Action
         // Init title for all actions
         $this->view->pageTitle = pm_Locale::lmsg('pageTitle');
 
-        // Init tabs for all actions
-        $this->view->tabs = array(
+        $tabs = array(
             array(
                 'title' => pm_Locale::lmsg('formTitle'),
-                'link' => $this->_helper->url('form', 'index')
-            ),
-            array(
+                'action' => 'form',
+        ));
+        if(!pm_Settings::get('dcApiLogin') || !pm_Settings::get('dcApiKey')) {
+            $this->_status->addMessage('error', pm_Locale::lmsg('needAccess'));
+        } else {
+            $this->api = new Modules_Decanet_DcApiRest(pm_Settings::get('dcApiLogin'), pm_Settings::get('dcApiKey'));
+            $tabs[] = array(
                 'title' => pm_Locale::lmsg('MyDetails'),
-                'link' => $this->_helper->url('info', 'index')
-            ),
-            array(
+                'action' => 'info',
+            );
+            $tabs[] = array(
                 'title' => pm_Locale::lmsg('SecondaryDNS'),
-                'link' => $this->_helper->url('serverlist', 'index')
-            ),
-            array(
-                'title' => pm_Locale::lmsg('Backups'),
-                'active' => true,
-                'action' => 'backupslist',
-            ),
-        );
+                'action' => 'serverlist',
+            );
+        }
+		$tabs[] = array(
+			'title' => pm_Locale::lmsg('Backups'),
+			'link' => $this->_helper->url('backupslist', 'backups')
+		);
+		
+		// Init tabs for all actions
+        $this->view->tabs = $tabs;
     }
     
     public function backupslistAction()

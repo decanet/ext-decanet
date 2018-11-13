@@ -24,11 +24,11 @@ class IndexController extends pm_Controller_Action
                 'title' => pm_Locale::lmsg('SecondaryDNS'),
                 'action' => 'serverlist',
             );
-            $tabs[] = array(
-                'title' => pm_Locale::lmsg('Backups'),
-                'link' => $this->_helper->url('backupslist', 'backups')
-            );
         }
+		$tabs[] = array(
+			'title' => pm_Locale::lmsg('Backups'),
+			'link' => $this->_helper->url('backupslist', 'backups')
+		);
         // Init title for all actions
         $this->view->pageTitle = pm_Locale::lmsg('pageTitle');
 
