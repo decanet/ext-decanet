@@ -27,7 +27,8 @@ class IndexController extends pm_Controller_Action
         }
 		$tabs[] = array(
 			'title' => pm_Locale::lmsg('Backups'),
-			'link' => $this->_helper->url('backupslist', 'backups')
+			'link' => $this->_helper->url('backupslist', 'backups'),
+			'action' => 'backupslist'
 		);
         // Init title for all actions
         $this->view->pageTitle = pm_Locale::lmsg('pageTitle');

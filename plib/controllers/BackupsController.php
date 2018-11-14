@@ -13,7 +13,7 @@ class BackupsController extends pm_Controller_Action
         $tabs = array(
             array(
                 'title' => pm_Locale::lmsg('formTitle'),
-                'action' => 'form',
+                'link' => $this->_helper->url('form', 'index')
         ));
         if(!pm_Settings::get('dcApiLogin') || !pm_Settings::get('dcApiKey')) {
             $this->_status->addMessage('error', pm_Locale::lmsg('needAccess'));
@@ -30,7 +30,8 @@ class BackupsController extends pm_Controller_Action
         }
 		$tabs[] = array(
 			'title' => pm_Locale::lmsg('Backups'),
-			'link' => $this->_helper->url('backupslist', 'backups')
+			'link' => $this->_helper->url('backupslist', 'backups'),
+			'action' => 'backupslist'
 		);
 		
 		// Init tabs for all actions
