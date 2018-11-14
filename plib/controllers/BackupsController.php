@@ -30,7 +30,6 @@ class BackupsController extends pm_Controller_Action
         }
 		$tabs[] = array(
 			'title' => pm_Locale::lmsg('Backups'),
-			'link' => $this->_helper->url('backupslist', 'backups'),
 			'action' => 'backupslist'
 		);
 		
