@@ -16,10 +16,10 @@ class IndexController extends pm_Controller_Action
             $this->_status->addMessage('error', pm_Locale::lmsg('needAccess'));
         } else {
             $this->api = new Modules_Decanet_DcApiRest(pm_Settings::get('dcApiLogin'), pm_Settings::get('dcApiKey'));
-            $tabs[] = array(
+            /*$tabs[] = array(
                 'title' => pm_Locale::lmsg('MyDetails'),
                 'action' => 'info',
-            );
+            );*/
             $tabs[] = array(
                 'title' => pm_Locale::lmsg('SecondaryDNS'),
                 'action' => 'serverlist',

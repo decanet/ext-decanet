@@ -4,7 +4,7 @@
   <name>Decanet</name>
   <description>Reliez votre serveur Plesk à votre infogérance Decanet.</description>
   <version>1.0</version>
-  <release>2</release>
+  <release>3</release>
   <vendor>Decanet</vendor>
   <url>https://www.decanet.fr</url>
   <plesk_min_version>17.0</plesk_min_version>

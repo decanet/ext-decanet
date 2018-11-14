@@ -37,4 +37,5 @@ $messages = [
     'restoreTaskRunning' => 'En cours de restauration',
     'restoreTaskDone' => 'Restauration terminée',
     'in running' => 'en cours',
+	'#ID' => 'ID'
 ];
